@@ -1,0 +1,32 @@
+// 多少行限制超出省略
+// 整个盒子的高度， 行数
+@mixin ellipsis($line:1, $height:'') {
+    @if $line==1 {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-wrap: break-word;
+        white-space: nowrap;
+    }
+    @else {
+        // height: $height;
+        // line-height: $height / $line;
+        // overflow: hidden;
+        // text-overflow: ellipsis;
+        // word-wrap: break-word;
+        // display: -webkit-box;
+        // -webkit-box-orient: vertical;
+        // -webkit-line-clamp: $line;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: $line;
+        overflow: hidden;
+    }
+}
+
+//两端对齐
+@mixin text_jusify($ls:1px) {
+    letter-spacing: $ls;
+    text-align: justify;
+    /*IE*/
+    text-justify: inter-ideograph;
+}
