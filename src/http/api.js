@@ -51,7 +51,7 @@ export default (url = '', data = {}, type = 'GET') => {
     }
     let p = 'w'
     let language = 1
-    let pid = 65
+    let pid = 66
     if (url == '/api/exhibit_list' || url == '/api/exhibit_info') {//只有展品列表，展品详情有语言切换
         language = data.language
     }
