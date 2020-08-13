@@ -16,6 +16,13 @@
       <!-- <change-lan @change="change"></change-lan> -->
       <div class="j_de">
         <div class="j_de_header">
+          <div
+            class="changeView"
+            :style="{backgroundImage:`url(${language == 1?'static/img/changeZ.png':'static/img/changeY.png'})`}"
+          >
+            <div class="chText" @click="changeMyLan(0)">中</div>
+            <div class="chText" @click="changeMyLan(1)">EN</div>
+          </div>
           <div class="j_de_header--banner">
             <!-- <img class="image" :src="detail.exhibit_imgs&&detail.exhibit_imgs[0]" /> -->
             <swiper class="swiper" :options="swiperOption">
@@ -32,17 +39,22 @@
           <div class="j_de_header--progress" v-if="detail.audio">
             <!--v-if="detail.audio"-->
             <div class="prog_cont">
+              <div class="prog_cont_curtime">{{ currentTime | formatSecond }}</div>
+              <div class="prog_cont_line" @touchstart="handleTouchStart">
+                <div class="slider-track" ref="track"></div>
+                <div class="slider-fill" ref="fill" :style="'width:' + sliderX + '%'"></div>
+                <div class="slider-thumb" ref="thumb" :style="'left:' + sliderX + '%'"></div>
+              </div>
+              <div
+                class="prog_cont_durtime"
+                style="padding-right:10px;"
+              >{{ maxTime | formatSecond }}</div>
               <div
                 class="prog_btn"
                 :class="[playing?'play':'pause']"
                 @click="toggleplay"
                 style="margin-right:15px;"
               ></div>
-              <div class="middels">
-                <div class="mttitle">{{detail.exhibit_name}}</div>
-                <!-- currentTime返回当前视频/音频播放位置 -->
-                <div class="prog_cont_curtime">{{ currentTime | formatSecond }}</div>
-              </div>
             </div>
 
             <!-- timeupdate用来更新音频当前播放时间 -->
@@ -62,10 +74,6 @@
         </div>
       </div>
     </div>
-    <!-- <div class="changeView">
-      <div class="text1" @click="isShowAction(1)" :hidden="!isShowC">{{hideStr}}</div>
-      <div class="text2" @click="isShowAction(0)">{{showStr}}</div>
-    </div>-->
   </div>
 </template>
 <script>
@@ -83,6 +91,7 @@ import changeLan from '../components/changeLan';
 
 //时间转换
 const transTime = value => {
+  
   let time = '';
   let h = parseInt(value / 3600);
   value %= 3600;
@@ -160,6 +169,8 @@ export default {
       playing: false,
       // 音频当前播放时长
       currentTime: 0,
+      // 音频当前播放时长
+      totalTimeStr: '',
       // 音频最大播放时长
       maxTime: 0,
       minTime: 0,
@@ -233,6 +244,16 @@ export default {
         vm.app.hideLoading();
       }
     },
+
+    changeMyLan(e){
+      if(e === 1){
+        this.language = 2;
+      }else{
+        this.language = 1;
+      }
+      this.getDetail()
+    },
+
     // goThree(e) {
     // 	window.location.href = e
     // },
@@ -357,7 +378,7 @@ export default {
     // 加载展品详情
     async getDetail(value) {
       let vm = this;
-      vm.handleClose();
+      // vm.handleClose();
       try {
         vm.app.showLoading();
         let data = {
@@ -367,7 +388,8 @@ export default {
         const res = await exhibitInfo(data);
         if (res.status == 1) {
           vm.detail = res.data;
-          vm.maxTime = vm.detail.audio_time - 1;
+          
+          vm.maxTime = res.data.audiotime - 1;
           document.title = vm.detail.exhibit_name;
           vm.imglist = vm.detail.exhibit_imgs;
           // vm.initWx()
@@ -384,6 +406,7 @@ export default {
     },
     handleClose() {
       this.currentTime = 0;
+      
       this.maxTime = 0;
       this.sliderX = 0;
       this.showLoading = false;
@@ -398,7 +421,7 @@ export default {
       if (this.detail.audio.trim().length === 0) {
         return;
       }
-      // debugger;
+      // ;
       // this.sliderX ? (
       this.playing = true;
       // ) : (this.showLoading = true);
@@ -415,6 +438,7 @@ export default {
       // currentTime 属性设置或返回音频/视频播放的当前位置
       this.currentTime = res.target.currentTime;
       this.$refs.audio.oncanplay = function() {
+        
         this.maxTime = parseInt(res.target.duration);
       };
       // 进度条
@@ -428,6 +452,7 @@ export default {
       this.isFirst = false;
     },
     handleTouchStart(e) {
+      
       this.setValue(e.touches[0]);
       document.addEventListener('touchmove', this.handleTouchMove);
       document.addEventListener('touchup', this.handleTouchEnd);
@@ -497,14 +522,6 @@ export default {
 /** @format */
 
 @import '../../static/css/mixin.scss';
-
-.changeView {
-  width: 235px;
-  height: 95px;
-  position: fixed;
-  right: 23px;
-  bottom: 230px;
-}
 
 .text1 {
   width: 100%;
@@ -599,6 +616,7 @@ export default {
   background-repeat: no-repeat;
   background-size: 100% 100%;
   .j_de_header {
+    position: relative;
     // width: 100vw;
     // display: flex;
     // justify-content: center;
@@ -606,9 +624,30 @@ export default {
     padding: 60px 24px;
     background: #ffffff;
 
+    .changeView {
+      position: absolute;
+      top: 473px;
+      right: 30px;
+      width: 144px;
+      height: 60px;
+      display: flex;
+      justify-content: space-around;
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      z-index: 10;
+
+      .chText {
+        font-size: 30px;
+        font-family: PingFang SC Medium, PingFang SC Medium-Medium;
+        font-weight: 500;
+        color: #ffffff;
+        line-height: 60px;
+      }
+    }
+
     .j_de_header--banner {
       width: 100%;
-      height: 400px;
+      height: 563px;
       background: rgba(76, 116, 82, 1);
       box-shadow: 0px 11px 22px 0px rgba(0, 0, 0, 0.2);
       border-radius: 20px;
@@ -683,43 +722,24 @@ export default {
       // position: fixed;
       // bottom: 0;
       // left: 0;
-      width: 100%;
-      // min-height: 124px;
+      margin: 30px 0px;
+      width: 690px;
+      min-height: 120px;
       display: flex;
       align-items: center;
       user-select: none;
+      background-color: #f3f3f3;
+      border-radius: 10px;
+      padding-left: 10px;
 
       .prog_cont {
-        margin-top: 50px;
-        width: 709px;
-        min-height: 108px;
-        background: rgba(239, 239, 239, 1);
-        border-radius: 20px;
+        height: 100%;
         flex: 1;
         display: flex;
+        justify-content: space-around;
         align-items: center;
 
-        .middels {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          // height: 100%;
-
-          .mttitle {
-            font-size: 36px;
-            font-family: PingFang SC;
-            font-weight: 500;
-            color: rgba(51, 51, 51, 1);
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            // -webkit-line-clamp: 1;
-            -webkit-box-orient: vertical;
-          }
-        }
-
         .prog_btn {
-          margin-left: 14px;
           width: 66px;
           height: 66px;
           flex-shrink: 0;
@@ -755,18 +775,18 @@ export default {
           border-radius: 2px;
           .slider-track {
             position: absolute;
-            height: 4px;
+            height: 6px;
             left: 0;
             right: 0;
             top: 50%;
             margin-top: -2px;
-            background-color: #d2d2d2;
+            background-color: #fff;
             opacity: 0.3;
           }
 
           .slider-fill {
             position: absolute;
-            height: 4px;
+            height: 6px;
             width: 0%;
             border-radius: 2px;
             background-color: #e27418;
