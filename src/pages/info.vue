@@ -734,7 +734,7 @@ export default {
       // position: fixed;
       // bottom: 0;
       // left: 0;
-      margin: 30px 30px;
+      margin: 30px 0px 30px 30px;
       width: 690px;
       min-height: 120px;
       display: flex;
@@ -772,7 +772,9 @@ export default {
           }
         }
 
-        &_curtime,
+        &_curtime {
+          margin-left: 20px;
+        }
         &_durtime {
           color: #82868e;
           font-size: 24px;
@@ -858,7 +860,7 @@ export default {
         top: 4px;
       }
       .exhibitTitle {
-        font-size: 36px;
+        font-size: 32px;
         font-family: PingFang SC Medium, PingFang SC Medium-Medium;
         font-weight: bold;
         text-align: left;

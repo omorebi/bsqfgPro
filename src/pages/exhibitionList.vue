@@ -224,7 +224,7 @@ export default {
           top: 21px;
         }
         .detail {
-          font-size: 36px;
+          font-size: 30px;
           font-family: PingFang SC;
           // font-weight: bold;
           color: rgba(35, 35, 35, 1);

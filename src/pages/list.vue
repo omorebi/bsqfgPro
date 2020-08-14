@@ -760,8 +760,8 @@ export default {
         height: 56px;
         border-radius: 50%;
         position: absolute;
-        top: 1px;
-        left: 1px;
+        top: 0px;
+        left: 0px;
         // transform: translateY(-50%);
         background-repeat: no-repeat;
         background-size: 100% 100%;
@@ -769,12 +769,12 @@ export default {
         background-repeat: no-repeat;
         &.on {
           background-image: url('../../static/img/play_btn.png');
-          background-size: 52px 52px;
+          background-size: 40px 40px;
           background-position: center center;
         }
         &.play {
           background-image: url('../../static/img/playing_btn.png');
-          background-size: 30px 30px;
+          background-size: 40px 40px;
           // border: 1px solid #E0E0E0;
           background-position: center center;
         }
