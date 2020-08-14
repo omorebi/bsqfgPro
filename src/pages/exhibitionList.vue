@@ -21,7 +21,7 @@
         <img class="img" :src="a.exhibition_full_img" alt />
         <div class="textDiv">
           <div class="myCon">
-            <!-- <div class="title">{{a.exhibition_address}}</div> -->
+            <div class="shudao"></div>
             <div class="detail">{{a.exhibition_name}}</div>
             <img class="jiantou" src="../../static/img/jinru-color.png" alt />
           </div>
@@ -211,28 +211,32 @@ export default {
       .myCon {
         width: 100%;
         display: flex;
-        justify-content: space-between;
+        justify-content: left;
         align-items: center;
-        border-left: 6px solid #e27418;
-        .title {
-          font-size: 34px;
-          font-family: FZCuQian-M17S;
-          font-weight: 400;
-          color: rgba(172, 53, 63, 1);
-          text-shadow: 0px 5px 2px rgba(79, 6, 5, 0.15);
-          -webkit-text-stroke: 1px undefined;
+        height: 84px;
+        position: relative;
+        .shudao {
+          width: 6px;
+          height: 36px;
+          background: #e27418;
+          position: absolute;
+          left: 0px;
+          top: 21px;
         }
         .detail {
-          font-size: 28px;
+          font-size: 36px;
           font-family: PingFang SC;
-          font-weight: bold;
+          // font-weight: bold;
           color: rgba(35, 35, 35, 1);
           text-indent: 24px;
+          text-align: left;
         }
         .jiantou {
           width: 28px;
           height: 32px;
-          margin-right: 28px;
+          position: absolute;
+          right: 24px;
+          top: 23px;
         }
       }
     }

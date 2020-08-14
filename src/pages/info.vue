@@ -25,10 +25,7 @@
           </div>
           <div class="j_de_header--banner">
             <!-- <img class="image" :src="detail.exhibit_imgs&&detail.exhibit_imgs[0]" /> -->
-            <swiper
-              :class="imglist.count > 1 ? 'swiper' : 'swiper swiper-no-swiping'"
-              :options="swiperOption"
-            >
+            <swiper class="swiper" :options="swiperOption">
               <swiper-slide class="slide" v-for="(info, index) in imglist" :key="index">
                 <img class="image" :src="info" />
               </swiper-slide>
@@ -73,8 +70,10 @@
         </div>
         <!-- 内容描述 -->
         <div class="j_de_body">
-          <div class="j_de_body--shudao"></div>
-          <div class="j_de_body--title">{{detail.exhibit_name}}</div>
+          <div class="j_de_body--header">
+            <div class="shudao"></div>
+            <div class="exhibitTitle">{{detail.exhibit_name}}</div>
+          </div>
           <div class="j_de_body--content" v-html="detail.content"></div>
         </div>
       </div>
@@ -128,12 +127,15 @@ export default {
   data() {
     return {
       // swiper配置
+      canswip:true,
       hideStr: 'EN',
       showStr: '中',
       zhongwen: '中',
       yingwen: 'EN',
       language: 1,
       isShowC: false,
+      mycssStr:'swiper',
+      noSwipStr:'swiper swiper-no-swiping',
       swiperOption: {
         notNextTick: true,
         // 默认为slide（位移切换）
@@ -146,7 +148,6 @@ export default {
         // 自动播放
         autoplay: {
           delay: 2000,
-          // 自动切换不会停止
           disableOnInteraction: false,
         },
         loop: false,
@@ -397,6 +398,12 @@ export default {
           
           vm.maxTime = res.data.audiotime - 1;
           vm.imglist = vm.detail.exhibit_imgs;
+          
+          if(vm.imglist.length > 1){
+            vm.canswip = true;
+          }else{
+            vm.canswip = false;
+          }
           // vm.initWx()
         }
         vm.app.hideLoading();
@@ -841,23 +848,23 @@ export default {
     position: relative;
     // background: url('../../../static/img/bglogo.png') no-repeat center center;
     // background-size: 382px 411px;
-
-    &--shudao {
-      width: 8px;
-      height: 36px;
-      background: #e27418;
-      position: absolute;
-      left: 0px;
-      top: 10px;
-    }
-
-    &--title {
-      font-size: 36px;
-      font-family: PingFang SC Medium, PingFang SC Medium-Medium;
-      font-weight: bold;
-      text-align: left;
-      color: #323232;
-      max-lines: 3;
+    &--header {
+      .shudao {
+        width: 8px;
+        height: 36px;
+        background: #e27418;
+        position: absolute;
+        left: 0px;
+        top: 4px;
+      }
+      .exhibitTitle {
+        font-size: 36px;
+        font-family: PingFang SC Medium, PingFang SC Medium-Medium;
+        font-weight: bold;
+        text-align: left;
+        color: #323232;
+        max-lines: 3;
+      }
     }
 
     &--content {

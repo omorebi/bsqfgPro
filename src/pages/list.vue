@@ -1,37 +1,7 @@
 <template>
   <div class="online">
-    <!-- <change-lan @change="change"></change-lan> -->
-    <!-- <div class="tools">
-            <div class="search">
-                <div class="sousuo">
-                    <img src="../../static/img/search _icon.png" alt="">
-                </div>
-                <form class="form" action="javascript:return true;">
-                    <input 
-                        placeholder="搜索展品名称或编号收听语音讲解..." 
-                        v-model="keyword"
-                        @keyup.13="search(keyword)"
-                        type="search">
-
-                    <input type="text" style="display:none;"/>
-                    <span class="clear" v-show="keyword" @click="keyword = ''"></span>
-                </form>
-            </div>
-            <span class="cancel" v-show="isSearch" @click="clearKeyword">取消</span>
-    </div>-->
-    <!-- <div class="exhibition">
-            <swiper :options="swiperOption">
-                <swiper-slide class="slide" v-for="(info, index) in imgList" :key="index">
-                    <img class="image" :src="info"/>
-                </swiper-slide>
-                <div class="swiper-pagination" slot="pagination"></div>
-            </swiper>
-    </div>-->
     <div class="j_de_header--banner">
-      <swiper
-        :class="imglist.count > 1 ? 'swiper' : 'swiper swiper-no-swiping'"
-        :options="swiperOption"
-      >
+      <swiper class="swiper" :options="swiperOption">
         <swiper-slide class="slide" v-for="(info, index) in imglist" :key="index">
           <img class="image" :src="info" />
         </swiper-slide>
@@ -109,7 +79,7 @@ import app from '../assets/js/App';
 import {toThumbsimg} from '../assets/js/toThumbsimg';
 import myProgress from '../components/progress';
 import changeLan from '../components/changeLan';
-import {exhibitList} from '../http/interface';
+import {exhibitList,exhibitInfo} from '../http/interface';
 //   import {mapState,mapGetters,mapActions} from 'vuex';
 const transTime = value => {
   let time = '';
@@ -162,7 +132,6 @@ export default {
       audio: '',
       busy: false,
       more: true,
-      imgList: [],
       swiperOption: {
         notNextTick: true,
         // 默认为slide（位移切换）
@@ -226,6 +195,37 @@ export default {
     this.list = this.list;
   },
   methods: {
+
+    // 加载展品详情
+    async getDetail(value) {
+      let vm = this;
+      vm.handleClose();
+      try {
+        vm.app.showLoading();
+        let data = {
+          language: vm.language,
+          exhibit_id: vm.exhibit_id,
+        };
+        const res = await exhibitInfo(data);
+        if (res.status == 1) {
+          vm.detail = res.data;
+          
+          vm.maxTime = res.data.audiotime - 1;
+          vm.imglist = vm.detail.exhibit_imgs;
+          
+          if(vm.imglist.length > 1){
+            vm.canswip = true;
+          }else{
+            vm.canswip = false;
+          }
+          // vm.initWx()
+        }
+        vm.app.hideLoading();
+      } catch (error) {
+        vm.app.hideLoading();
+      }
+    },
+
     change(value) {
       this.audioended();
       this.$store.commit('setLan', value);
@@ -534,41 +534,6 @@ export default {
     width: 100%;
     height: 350px;
   }
-  /deep/ .swiper-pagination {
-    .swiper-pagination-bullet {
-      width: 11px;
-      height: 11px;
-      background: #ffffff;
-      opacity: 0.4;
-      transition: all 0.3s;
-      &.swiper-pagination-bullet-active {
-        width: 27px;
-        border-radius: 5px;
-        opacity: 1;
-      }
-    }
-  }
-  // .lanBtn{
-  //     width: 200px;
-  //     height: 50px;
-  //     background: #153D07;
-  //     position: absolute;
-  //     right: 22px;
-  //     bottom: 30px;
-  //     border-radius: 25px;
-  //     display: flex;
-  //     .lan{
-  //         flex: 1;
-  //         border-radius: 25px;
-  //         text-align: center;
-  //         color: #ffffff;
-  //         font-size: 30px;
-  //         line-height: 50px;
-  //         &.check{
-  //             background: #FFC600;
-  //         }
-  //     }
-  // }
 }
 
 /*加载更多*/
