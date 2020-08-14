@@ -18,9 +18,7 @@
     </div>-->
     <div class="exhibition" v-bind:key="i" v-for="(a,i) in list">
       <router-link class="center" :to="'/basics/list/'+a.exhibition_id">
-        <div class="img">
-          <img :src="a.exhibition_full_img" alt />
-        </div>
+        <img class="img" :src="a.exhibition_full_img" alt />
         <div class="textDiv">
           <div class="myCon">
             <!-- <div class="title">{{a.exhibition_address}}</div> -->
@@ -144,6 +142,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 20px 0px;
   .topalert {
     width: 750px;
     height: 50px;
@@ -198,12 +197,9 @@ export default {
     border-radius: 10px;
 
     .img {
-      width: 100%;
       height: 345px;
-      img {
-        width: 100%;
-        height: 100%;
-      }
+      width: 100%;
+      border-radius: 10px 10px 0px 0px;
     }
     .textDiv {
       width: 100%;
@@ -216,7 +212,7 @@ export default {
         width: 100%;
         display: flex;
         justify-content: space-between;
-        align-items: flex-end;
+        align-items: center;
         border-left: 6px solid #e27418;
         .title {
           font-size: 34px;

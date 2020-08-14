@@ -139,7 +139,7 @@ const router = new Router({
             name: 'base',
             component: resolve => require(['@/pages/list'], resolve),
             meta: {
-                title: '清风馆语音导览',
+                title: '语音导览',
                 keepAlive: true,
                 isBack: true
             }

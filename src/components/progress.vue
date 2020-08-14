@@ -57,13 +57,13 @@ export default {
     top: 0;
     left: 0;
     circle {
-      stroke-width: 6px;
+      stroke-width: 18px;
       transform-origin: center;
 
       &.progress-background {
         progresscolor: #fff;
         progressbackgroundcolor: #fff;
-        transform: scale(0.9);
+        transform: scale(0.8);
         stroke: #f1eff2;
       }
 

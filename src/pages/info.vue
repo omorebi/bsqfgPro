@@ -25,7 +25,10 @@
           </div>
           <div class="j_de_header--banner">
             <!-- <img class="image" :src="detail.exhibit_imgs&&detail.exhibit_imgs[0]" /> -->
-            <swiper class="swiper" :options="swiperOption">
+            <swiper
+              :class="imglist.count > 1 ? 'swiper' : 'swiper swiper-no-swiping'"
+              :options="swiperOption"
+            >
               <swiper-slide class="slide" v-for="(info, index) in imglist" :key="index">
                 <img class="image" :src="info" />
               </swiper-slide>
@@ -70,6 +73,8 @@
         </div>
         <!-- 内容描述 -->
         <div class="j_de_body">
+          <div class="j_de_body--shudao"></div>
+          <div class="j_de_body--title">{{detail.exhibit_name}}</div>
           <div class="j_de_body--content" v-html="detail.content"></div>
         </div>
       </div>
@@ -195,6 +200,7 @@ export default {
     // lanSwitch
   },
   created: function() {
+    document.title = '展品详情';
     this.exhibit_id = this.$route.params.exhibit_id;
     this.getDetail();
     // this.dovisitExhibit()//浏览量
@@ -378,7 +384,7 @@ export default {
     // 加载展品详情
     async getDetail(value) {
       let vm = this;
-      // vm.handleClose();
+      vm.handleClose();
       try {
         vm.app.showLoading();
         let data = {
@@ -390,7 +396,6 @@ export default {
           vm.detail = res.data;
           
           vm.maxTime = res.data.audiotime - 1;
-          document.title = vm.detail.exhibit_name;
           vm.imglist = vm.detail.exhibit_imgs;
           // vm.initWx()
         }
@@ -621,7 +626,7 @@ export default {
     // display: flex;
     // justify-content: center;
     // align-items: center;
-    padding: 60px 24px;
+    padding: 0px 0px 20px 0px;
     background: #ffffff;
 
     .changeView {
@@ -648,7 +653,7 @@ export default {
     .j_de_header--banner {
       width: 100%;
       height: 563px;
-      background: rgba(76, 116, 82, 1);
+      // background: rgba(76, 116, 82, 1);
       box-shadow: 0px 11px 22px 0px rgba(0, 0, 0, 0.2);
       border-radius: 20px;
       position: relative;
@@ -722,7 +727,7 @@ export default {
       // position: fixed;
       // bottom: 0;
       // left: 0;
-      margin: 30px 0px;
+      margin: 30px 30px;
       width: 690px;
       min-height: 120px;
       display: flex;
@@ -833,21 +838,26 @@ export default {
     padding: 0 23px 40px 23px;
     box-sizing: border-box;
     background: #ffffff;
+    position: relative;
     // background: url('../../../static/img/bglogo.png') no-repeat center center;
     // background-size: 382px 411px;
+
+    &--shudao {
+      width: 8px;
+      height: 36px;
+      background: #e27418;
+      position: absolute;
+      left: 0px;
+      top: 10px;
+    }
+
     &--title {
-      padding-bottom: 10px;
-      display: flex;
-      justify-content: space-between;
-      .title {
-        width: 100%;
-        font-size: 42px;
-        color: #000000;
-        word-break: break-all;
-        text-align: center;
-        border-bottom: 1px solid #eeeeee;
-        line-height: 94px;
-      }
+      font-size: 36px;
+      font-family: PingFang SC Medium, PingFang SC Medium-Medium;
+      font-weight: bold;
+      text-align: left;
+      color: #323232;
+      max-lines: 3;
     }
 
     &--content {

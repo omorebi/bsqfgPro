@@ -28,7 +28,10 @@
             </swiper>
     </div>-->
     <div class="j_de_header--banner">
-      <swiper class="swiper" :options="swiperOption">
+      <swiper
+        :class="imglist.count > 1 ? 'swiper' : 'swiper swiper-no-swiping'"
+        :options="swiperOption"
+      >
         <swiper-slide class="slide" v-for="(info, index) in imglist" :key="index">
           <img class="image" :src="info" />
         </swiper-slide>
@@ -848,7 +851,8 @@ export default {
   }
 }
 .nomore {
-  font-size: 30px;
+  font-size: 20px;
   text-align: center;
+  color: lightgray;
 }
 </style>
