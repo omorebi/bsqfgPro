@@ -774,6 +774,7 @@ export default {
 
         &_curtime {
           margin-left: 20px;
+          font-size: 24px;
         }
         &_durtime {
           color: #82868e;
