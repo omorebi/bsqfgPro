@@ -190,9 +190,7 @@ export default {
     }
   },
   deactivated() {
-    this.playi = 0;
-    this.isplaying = false;
-    this.list = this.list;
+    this.clearAudio()
   },
   methods: {
 
@@ -362,7 +360,6 @@ export default {
     //加载更多
     get_more() {
       // console.log('触发更多')
-      // debugger
       let vm = this;
       vm.skip += 10;
       vm.isloading = true;
@@ -384,6 +381,16 @@ export default {
         e.cur = 0;
       });
     },
+
+    clearAudio(){
+      let vm = this;
+      vm.isplaying = false;
+      vm.playi = null;
+      vm.list.forEach(e => {
+        e.cur = 0;
+      });
+    },
+
     // /*播放暂停切换*/
     toggleplay(i) {
       var vm = this;
