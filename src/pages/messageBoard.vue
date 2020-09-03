@@ -166,7 +166,7 @@
       margin-right: 20px;
       white-space: nowrap;
       .tip {
-        color: #e27418;
+        color: #c33c1d;
       }
     }
     .inp {

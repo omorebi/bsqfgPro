@@ -23,7 +23,7 @@
           <div class="myCon">
             <div class="shudao"></div>
             <div class="detail">{{a.exhibition_name}}</div>
-            <img class="jiantou" src="../../static/img/jinru-color.png" alt />
+            <!-- <img class="jiantou" src="../../static/img/jinru-color.png" alt /> -->
           </div>
         </div>
       </router-link>
@@ -55,20 +55,20 @@ export default {
   methods: {
     move() {
       // 获取文字text 的计算后宽度  （由于overflow的存在，直接获取不到，需要独立的node计算）
-      let width = document.getElementById('node').getBoundingClientRect().width;
-      let box = document.getElementById('box');
-      let copy = document.getElementById('copy');
-      copy.innerText = ''; // 文字副本填充
+      // let width = document.getElementById('node').getBoundingClientRect().width;
+      // let box = document.getElementById('box');
+      // let copy = document.getElementById('copy');
+      // copy.innerText = ''; // 文字副本填充
       let distance = 0; // 位移距离
       //设置位移
-      setInterval(function() {
-        distance = distance - 1;
-        // 如果位移超过文字宽度，则回到起点
-        if (-distance >= width + 180) {
-          distance = 60;
-        }
-        box.style.transform = 'translateX(' + distance + 'px)';
-      }, 30);
+      // setInterval(function() {
+      //   distance = distance - 1;
+      //    如果位移超过文字宽度，则回到起点
+      //   if (-distance >= width + 180) {
+      //     distance = 60;
+      //   }
+      //   box.style.transform = 'translateX(' + distance + 'px)';
+      // }, 30);
     },
     async getList() {
       var vm = this;
@@ -218,7 +218,7 @@ export default {
         .shudao {
           width: 6px;
           height: 36px;
-          background: #e27418;
+          background: #c33c1d;
           position: absolute;
           left: 0px;
           top: 21px;

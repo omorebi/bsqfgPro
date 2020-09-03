@@ -70,7 +70,7 @@ export default {
       &.progress-bar {
         background-color: transparent;
         transform: scale(1) rotate(-90deg);
-        stroke: #e27418;
+        stroke: #c33c1d;
       }
     }
   }

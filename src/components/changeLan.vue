@@ -64,13 +64,13 @@
     height: 60px;
     font-size: 32px;
     font-weight: 500;
-    color: #e27418;
+    color: #c33c1d;
     line-height: 60px;
     background: #ffffff;
     border-radius: 30px;
     text-align: center;
     &.check {
-      background: #e27418;
+      background: #c33c1d;
       color: #ffffff;
     }
     &.zy {

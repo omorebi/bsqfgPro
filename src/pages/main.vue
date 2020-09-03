@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span class="btn" @click="routerGo('/basics/list')">清风馆语音导览</span>
+    <span class="btn" @click="routerGo('/basics/list')">语音导览</span>
     <span class="btn" @click="routerGo('/exhibitionList')">基本陈列</span>
     <span class="btn" @click="routerGo('/venue_introduction')">博物馆简介</span>
     <span class="btn" @click="routerGo('/visitNotes')">参观须知</span>

@@ -10,7 +10,7 @@ export default [
         name: 'main',
         component: resolve => require(['@/pages/exhibitionList'], resolve),
         meta: {
-            title: '清风馆语音导览'
+            title: '语音导览'
         }
     },
     // 404

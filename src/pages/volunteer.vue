@@ -9,12 +9,12 @@
       </swiper>
     </div>
     <div class="title">
-      <p class="title2">清风馆语音导览志愿服务</p>
+      <p class="title2">语音导览志愿服务</p>
     </div>
     <div class="content">
-      <div class="title">清风馆语音导览志愿者工作概况</div>
+      <div class="title">语音导览志愿者工作概况</div>
       <p class="artical" v-html="content" ref="artical"></p>
-      <div class="title title1">清风馆语音导览志愿者招募：</div>
+      <div class="title title1">语音导览志愿者招募：</div>
       <p class="artical" v-html="recruit" ref="artical"></p>
     </div>
   </div>

@@ -9,7 +9,7 @@
       </swiper>
     </div>
     <div class="title">
-      <p class="title2">清风馆语音导览简介</p>
+      <p class="title2">语音导览简介</p>
     </div>
     <div class="content">
       <p class="artical" v-html="content" ref="artical"></p>

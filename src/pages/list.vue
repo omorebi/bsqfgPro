@@ -26,7 +26,7 @@
         </router-link>
         <router-link class="center" :to="'/exhibit/detail/'+a.id">
           <div class="title">{{a.exhibit_name}}</div>
-          <div :class="['content',a.audio?'hascontent':'']">{{ a.desc }}</div>
+          <!-- <div :class="['content',a.audio?'hascontent':'']">{{ a.desc }}</div> -->
         </router-link>
         <div class="fenge"></div>
         <div
@@ -350,6 +350,13 @@ export default {
           } else {
             vm.is_show2 = true;
           }
+          
+          var i = 0
+          for (; i < vm.list.length; i++){
+            vm.list[i].exhibit_name = vm.list[i].exhibit_name.replace(/#/g, "\n");
+            // console.log('name====' + vm.list[i].exhibit_name)  
+          }
+
         }
         // vm.app.hideLoading()
       } catch (error) {
@@ -453,7 +460,7 @@ export default {
       height: 60px;
       font-size: 32px;
       font-weight: 500;
-      color: #e27418;
+      color: #c33c1d;
       line-height: 60px;
       background: #ffffff;
       border-radius: 30px;
@@ -695,7 +702,7 @@ export default {
       }
     }
     .center {
-      height: 80%;
+      // height: 80%;
       // width: 363px;
       flex: 1;
       display: flex;
@@ -703,14 +710,16 @@ export default {
       justify-content: space-between;
 
       .title {
-        font-size: 30px;
+        font-size: 28px;
         // line-height: 1.2rem;
         color: #323232;
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
-        -webkit-line-clamp: 2;
+        -webkit-line-clamp: 4;
         -webkit-box-orient: vertical;
+        white-space: pre-line;
+        line-height: 40px;
       }
       .content {
         font-size: 26px;

@@ -16,13 +16,13 @@
       <!-- <change-lan @change="change"></change-lan> -->
       <div class="j_de">
         <div class="j_de_header">
-          <div
+          <!-- <div
             class="changeView"
             :style="{backgroundImage:`url(${language == 1?'static/img/changeZ.png':'static/img/changeY.png'})`}"
           >
             <div class="chText" @click="changeMyLan(0)">中</div>
             <div class="chText" @click="changeMyLan(1)">EN</div>
-          </div>
+          </div>-->
           <div class="j_de_header--banner">
             <!-- <img class="image" :src="detail.exhibit_imgs&&detail.exhibit_imgs[0]" /> -->
             <swiper class="swiper" :options="swiperOption">
@@ -59,6 +59,7 @@
 
             <!-- timeupdate用来更新音频当前播放时间 -->
             <audio
+              id="faudio"
               ref="audio"
               preload="auto"
               :src="detail.audio"
@@ -395,7 +396,7 @@ export default {
         const res = await exhibitInfo(data);
         if (res.status == 1) {
           vm.detail = res.data;
-          
+          vm.detail.exhibit_name = vm.detail.exhibit_name.replace(/#/g, "\n");
           vm.maxTime = res.data.audiotime - 1;
           vm.imglist = vm.detail.exhibit_imgs;
           
@@ -449,10 +450,10 @@ export default {
       // vm.app.hideLoading();
       // currentTime 属性设置或返回音频/视频播放的当前位置
       this.currentTime = res.target.currentTime;
-      this.$refs.audio.oncanplay = function() {
+      // this.$refs.audio.oncanplay = function() {
         
-        this.maxTime = parseInt(res.target.duration);
-      };
+      //   this.maxTime = parseInt(res.target.duration);
+      // };
       // 进度条
       this.sliderX = parseInt((this.currentTime / this.maxTime) * 100);
     },
@@ -804,7 +805,7 @@ export default {
             height: 6px;
             width: 0%;
             border-radius: 2px;
-            background-color: #e27418;
+            background-color: #c33c1d;
             left: 0;
             top: 50%;
             margin-top: -2px;
@@ -814,8 +815,8 @@ export default {
             position: absolute;
             width: 10px;
             height: 22px;
-            background-color: #e27418;
-            color: #e27418;
+            background-color: #c33c1d;
+            color: #c33c1d;
             border-radius: 5px;
             left: 50%;
             top: 50%;
@@ -832,7 +833,7 @@ export default {
               top: 50%;
               margin-top: -2px;
               margin-left: -2px;
-              background-color: #e27418;
+              background-color: #c33c1d;
               border-radius: 50%;
             }
             &:active {
@@ -855,18 +856,19 @@ export default {
       .shudao {
         width: 8px;
         height: 36px;
-        background: #e27418;
+        background: #c33c1d;
         position: absolute;
         left: 0px;
         top: 4px;
       }
       .exhibitTitle {
-        font-size: 32px;
+        font-size: 34px;
         font-family: PingFang SC Medium, PingFang SC Medium-Medium;
         font-weight: bold;
         text-align: left;
         color: #323232;
         max-lines: 3;
+        white-space: pre-line;
       }
     }
 

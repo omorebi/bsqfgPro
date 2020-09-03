@@ -16,7 +16,7 @@
       <img :src="default_img" alt />
     </div>
     <div class="core">
-      <div class="title">清风馆语音导览参观须知</div>
+      <div class="title">语音导览参观须知</div>
       <div class="content">
         <p class="artical" v-html="content" ref="artical"></p>
       </div>

@@ -754,7 +754,7 @@ export default {
     cursor: pointer;
     .name {
       &.check {
-        color: #e27418;
+        color: #c33c1d;
       }
     }
     .btmLine {
@@ -876,7 +876,7 @@ export default {
             height: 6px;
             width: 0%;
             border-radius: 2px;
-            background-color: #e27418;
+            background-color: #c33c1d;
             left: 0;
             top: 50%;
             margin-top: -1px;
@@ -888,8 +888,8 @@ export default {
             top: 50%;
             width: 10px;
             height: 22px;
-            background-color: #e27418;
-            color: #e27418;
+            background-color: #c33c1d;
+            color: #c33c1d;
             left: 50%;
             margin-left: -6px;
             transform: translateY(-50%);
